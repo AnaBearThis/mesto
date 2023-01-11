@@ -4,13 +4,12 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-content: flex-start;
-    row-gap: 41px;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
 
 @media screen and (max-width: 828px) {
     .header {
-        row-gap: 31.6px;
+        row-gap: 32px;
     }
 }
