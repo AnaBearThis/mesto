@@ -1,0 +1,6 @@
+.photo__subtitle {
+    margin: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}

@@ -1,0 +1,16 @@
+.header {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: flex-start;
+    row-gap: 41px;
+}
+
+@media screen and (max-width: 828px) {
+    .header {
+        row-gap: 31.6px;
+    }
+}
