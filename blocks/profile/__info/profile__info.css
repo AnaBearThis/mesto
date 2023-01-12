@@ -8,7 +8,7 @@
     row-gap: 7px;
 }
 
-@media screen and (max-height: 828px) {
+@media screen and (max-width: 828px) {
     .profile__info {
         padding: 0;
     }

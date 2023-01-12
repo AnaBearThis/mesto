@@ -14,14 +14,6 @@
 }
 /* В макете у этого элемента точно такие же значения размера шрифта, высоты строки и тяжести, я перепроверила */
 
-@media screen and (max-width: 920px) {
-    .profile__name {
-        font-size: 33px;
-        line-height: 40px;
-        text-align: center;
-    }
-}
-
 @media screen and (max-width: 828px) {
     .profile__name {
         font-size: 27px;
