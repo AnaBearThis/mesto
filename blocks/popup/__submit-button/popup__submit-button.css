@@ -22,5 +22,6 @@
         margin: 15px 0 25px;
         font-size: 14px;
         line-height: 17px;
+        min-height: 46px;
     }
 }
