@@ -29,53 +29,18 @@
             </section>
 
             <section class="photos">
-                <div class="card">
-                    <img class="card__pic" src="./images/kostroma.jpg" alt="Кострома">
-                    <div class="card__description">   
-                        <h2 class="card__name">Кострома</h2>
-                        <button class="card__like-button" type="button" aria-label="нравится"></button>
-                    </div>     
-                </div>
 
-                <div class="card">
-                    <img class="card__pic" src="./images/london.jpg" alt="Лондон">
-                    <div class="card__description">
-                        <h2 class="card__name">Лондон</h2>
-                        <button class="card__like-button" type="button" aria-label="нравится"></button>
+                <template id="card">
+                    <div class="card">
+                        <img class="card__pic" src="" alt="">
+                        <div class="card__description">   
+                            <h2 class="card__name"></h2>
+                            <button class="card__like-button" type="button" aria-label="нравится"></button>
+                        </div>
+                        <button class="card__delete-button" type="button" aria-label="удалить"></button>     
                     </div>
-                </div>
+                </template>
 
-                <div class="card">
-                    <img class="card__pic" src="./images/moscow.jpg" alt="Москва">
-                    <div class="card__description">
-                        <h2 class="card__name">Москва</h2>
-                        <button class="card__like-button" type="button" aria-label="нравится"></button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img class="card__pic" src="./images/saint-petersburg.JPG" alt="Санкт-Петербург">
-                    <div class="card__description">
-                        <h2 class="card__name">Санкт-Петербург</h2>
-                        <button class="card__like-button" type="button" aria-label="нравится"></button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img class="card__pic" src="./images/sochi.jpg" alt="Сочи">
-                    <div class="card__description">
-                        <h2 class="card__name">Сочи</h2>
-                        <button class="card__like-button" type="button" aria-label="нравится"></button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img class="card__pic" src="./images/yaroslavl.jpg" alt="Ярославль">
-                    <div class="card__description">
-                        <h2 class="card__name">Ярославль</h2>
-                        <button class="card__like-button" type="button" aria-label="нравится"></button>
-                    </div>
-                </div>
             </section>
         </main>
 
@@ -85,7 +50,7 @@
 
     </div>    
 
-    <div class="popup">
+    <div class="popup popup_type_edit">
         
         <div class="popup__container">
             <h2 class="popup__heading">Редактировать профиль</h2>
@@ -95,7 +60,29 @@
                 <button type="submit" class="popup__submit-button">Сохранить</button>
             </form>    
             
-            <button class="popup__close-button" type="button" aria-label="закрыть"></button>
+            <button class="popup__close-button popup__close-button_type_edit" type="button" aria-label="закрыть"></button>
+        </div>
+    </div>
+
+    <div class="popup popup_type_add">
+        
+        <div class="popup__container">
+            <h2 class="popup__heading">Новое место</h2>
+            <form class="popup__form popup__form_type_create" name="userInfo">
+                <input type="text" name="name" placeholder="Название" class="popup__input popup__input_data_place">
+                <input type="text" name="link" placeholder="Ссылка на картинку" class="popup__input popup__input_data_link">
+                <button type="submit" class="popup__submit-button popup__submit-button_type_create">Создать</button>
+            </form>    
+            
+            <button class="popup__close-button popup__close-button_type_add" type="button" aria-label="закрыть"></button>
+        </div>
+    </div>
+
+    <div class="popup popup_type_view">
+        <div class="popup__container popup__container_type_view">   
+            <img class="popup__big-picture" src="" alt="">
+            <h2 class="popup__place-name"></h2>
+            <button class="popup__close-button popup__close-button_type_view" type="button" aria-label="закрыть"></button>
         </div>
     </div>
 

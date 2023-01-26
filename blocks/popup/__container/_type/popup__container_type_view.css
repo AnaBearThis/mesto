@@ -1,0 +1,9 @@
+.popup__container_type_view {
+    max-width: 75vw;
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    align-items: flex-start;
+    position: fixed;
+    justify-content: flex-start;
+}
