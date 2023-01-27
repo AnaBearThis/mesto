@@ -7,3 +7,9 @@
     position: fixed;
     justify-content: flex-start;
 }
+
+@media screen and (max-width: 828px) {
+    .popup__container_type_view {
+        min-width: 240px;
+    }
+}
