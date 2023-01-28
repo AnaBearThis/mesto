@@ -25,27 +25,26 @@ const elementCreate = popupAdd.querySelector('.popup__form_type_create');
 const popupViewContainer = popupView.querySelector('.popup__container');
 const popupViewBigPic = popupViewContainer.querySelector('.popup__big-picture');
 const popupViewPlaceName = popupViewContainer.querySelector('.popup__place-name');
-const popups = page.querySelectorAll('.popup');
 
 const openPopupEdit = () => {
     nameInput.value = profileName.textContent;
     descriptionInput.value = profileDescription.textContent;
-    openPopup(0);
+    openPopup(popupEdit);
 }
 
-function openPopup(index) {
-    popups[index].classList.add('popup_opened');
+function openPopup(popup) {
+    popup.classList.add('popup_opened');
 }
 
-function closePopup(index) {
-    popups[index].classList.remove('popup_opened');
+function closePopup(popup) {
+    popup.classList.remove('popup_opened');
 }
 
 function handleFormEditSubmit (evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileDescription.textContent = descriptionInput.value;
-    closePopup(0);
+    closePopup(popupEdit);
 }
 
 const initialCards = [
@@ -100,7 +99,7 @@ const createCard = (place, link) => {
         popupViewBigPic.src = cardPic.src;
         popupViewBigPic.alt = cardPic.alt;
         popupViewPlaceName.textContent = cardName.textContent;
-        openPopup(2);
+        openPopup(popupView);
     }
 
     cardPic.addEventListener('click', () => openPopupView());
@@ -124,15 +123,15 @@ const handleCardFormSubmit = (evt) => {
     const link = linkInput.value;
     photosContainer.prepend(createCard(place, link));
     elementCreate.reset();
-    closePopup(1);
+    closePopup(popupAdd);
 };
 
 
-popupCloseButtonView.addEventListener('click', () => closePopup(2));
+popupCloseButtonView.addEventListener('click', () => closePopup(popupView));
 buttonOpenEditProfilePopup.addEventListener('click', () => openPopupEdit());
-buttonOpenAddCardPopup.addEventListener('click', () => openPopup(1));
-popupCloseButtonEdit.addEventListener('click', () => closePopup(0));
-popupCloseButtonAdd.addEventListener('click', () => closePopup(1));
+buttonOpenAddCardPopup.addEventListener('click', () => openPopup(popupAdd));
+popupCloseButtonEdit.addEventListener('click', () => closePopup(popupEdit));
+popupCloseButtonAdd.addEventListener('click', () => closePopup(popupAdd));
 
 formEdit.addEventListener('submit', handleFormEditSubmit);
 elementCreate.addEventListener('submit', handleCardFormSubmit);
