@@ -25,6 +25,11 @@ const elementCreate = popupAdd.querySelector('.popup__form_type_create');
 const popupViewContainer = popupView.querySelector('.popup__container');
 const popupViewBigPic = popupViewContainer.querySelector('.popup__big-picture');
 const popupViewPlaceName = popupViewContainer.querySelector('.popup__place-name');
+const buttonSave = formEdit.querySelector('.popup__submit-button');
+const main = content.querySelector('.main');
+const photosContainer = main.querySelector('.photos');
+const cardTemplate = photosContainer.querySelector('#card').content;
+const cardItem = cardTemplate.querySelector('.card');
 
 const openPopupEdit = () => {
     nameInput.value = profileName.textContent;
@@ -34,10 +39,18 @@ const openPopupEdit = () => {
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    enableValidation(formValidationConfig);
 }
 
+const keyHandler = (evt) => {
+    const popup = page.querySelector('.popup_opened');
+    if (evt.key === 'Escape') {
+      closePopup(popup);
+    };
+};
+
 function closePopup(popup) {
-    popup.classList.remove('popup_opened');
+    popup.classList.remove('popup_opened'); 
 }
 
 function handleFormEditSubmit (evt) {
@@ -73,11 +86,6 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
-const main = content.querySelector('.main');
-const photosContainer = main.querySelector('.photos');
-const cardTemplate = photosContainer.querySelector('#card').content;
-const cardItem = cardTemplate.querySelector('.card');
 
 const createCard = (place, link) => {
     
@@ -126,12 +134,19 @@ const handleCardFormSubmit = (evt) => {
     closePopup(popupAdd);
 };
 
+const overlayHandler = (evt) => {
+  if (evt.target.classList.contains('popup_opened')) {
+    closePopup(evt.target);
+  };
+}
 
 popupCloseButtonView.addEventListener('click', () => closePopup(popupView));
 buttonOpenEditProfilePopup.addEventListener('click', () => openPopupEdit());
 buttonOpenAddCardPopup.addEventListener('click', () => openPopup(popupAdd));
 popupCloseButtonEdit.addEventListener('click', () => closePopup(popupEdit));
 popupCloseButtonAdd.addEventListener('click', () => closePopup(popupAdd));
-
 formEdit.addEventListener('submit', handleFormEditSubmit);
 elementCreate.addEventListener('submit', handleCardFormSubmit);
+document.addEventListener('click', overlayHandler);
+document.addEventListener('keypress', keyHandler);
+document.addEventListener('keydown', keyHandler);
