@@ -39,7 +39,6 @@ const openPopupEdit = () => {
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
-    toggleButton(formAdd, formValidationConfig);
     document.addEventListener('keydown', keyHandler);
 }
 
@@ -118,7 +117,10 @@ const overlayHandler = (evt) => {
 
 popupCloseButtonView.addEventListener('click', () => closePopup(popupView));
 buttonOpenEditProfilePopup.addEventListener('click', () => openPopupEdit());
-buttonOpenAddCardPopup.addEventListener('click', () => openPopup(popupAdd));
+buttonOpenAddCardPopup.addEventListener('click', () => {
+    openPopup(popupAdd);
+    toggleButton(formAdd, formValidationConfig);
+});
 popupCloseButtonEdit.addEventListener('click', () => closePopup(popupEdit));
 popupCloseButtonAdd.addEventListener('click', () => closePopup(popupAdd));
 formEdit.addEventListener('submit', handleFormEditSubmit);

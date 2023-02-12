@@ -10,20 +10,26 @@ function enableValidation(config) {
 function showInputError(inputItem, config) {
     const inputId = inputItem.id;
     const inputError = document.querySelector(`#${inputId}-error`);
-    if (!inputItem.validity.valid) {
-        inputItem.classList.add(config.inputErrorClass);
-        inputError.classList.add(config.errorClass);
-        inputError.textContent = inputItem.validationMessage;
-    }
+    inputItem.classList.add(config.inputErrorClass);
+    inputError.classList.add(config.errorClass);
+    inputError.textContent = inputItem.validationMessage;
 };
 
 function hideInputError(inputItem, config) {
     const inputId = inputItem.id;
     const inputError = document.querySelector(`#${inputId}-error`);
+    inputItem.classList.remove(config.inputErrorClass);
+    inputError.classList.remove(config.errorClass);
+    inputError.textContent = '';
+};
+
+function hadleInputError(inputItem, config) {
+    const inputId = inputItem.id;
+    const inputError = document.querySelector(`#${inputId}-error`);
     if (inputItem.validity.valid) {
-        inputItem.classList.remove(config.inputErrorClass);
-        inputError.classList.remove(config.errorClass);
-        inputError.textContent = '';
+        hideInputError(inputItem, config);
+    } else {
+        showInputError(inputItem, config);
     }
 };
 
@@ -39,10 +45,8 @@ function setInputListeners(form, config) {
     const inputList = Array.from(form.querySelectorAll(config.inputSelector));
     inputList.forEach(function (inputItem) {
         inputItem.addEventListener('input', () => {
-            showInputError(inputItem, config);
-            console.log(inputItem.classList);
-            hideInputError(inputItem, config);
             toggleButton(form, config);
+            hadleInputError(inputItem, config);
         });
         toggleButton(form, config);
     });
