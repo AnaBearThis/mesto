@@ -34,21 +34,21 @@ export default class Card {
         return this._card;
     }
 
-    _setListenerLike() {
-        this._buttonLike.addEventListener('click', () => this._buttonLike.classList.toggle('card__like-button_active'));
+    _likeButton() {
+        this._buttonLike.classList.toggle('card__like-button_active');
     }
 
-    _setListenerDelete() {
-        this._buttonDelete.addEventListener('click', () => this._card.remove());
+    _deleteCard() {
+        this._card.remove();
     }
 
-    _setListenerView() {
-        this._cardPic.addEventListener('click', () => this._openPopupView(this._link, this._name));
+    _viewPic() {
+        this._openPopupView(this._link, this._name);
     }
 
     _setEventListeners() {
-        this._setListenerLike();
-        this._setListenerDelete();
-        this._setListenerView();
+        this._buttonLike.addEventListener('click', () => this._likeButton());
+        this._buttonDelete.addEventListener('click', () => this._deleteCard());
+        this._cardPic.addEventListener('click', () => this._viewPic());
     }
 }

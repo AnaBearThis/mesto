@@ -30,11 +30,16 @@ const main = content.querySelector('.main');
 const photosContainer = main.querySelector('.photos');
 
 const formsList = Array.from(document.querySelectorAll('.popup__form'));
+
 formsList.forEach((form) => {
     const formValidator = new FormValidator(formValidationConfig, form);
     formValidator.enableValidation();
 })
 
+const createCard = (name, link) => {
+    const card = new Card('#card', openPopupView, name, link);
+    return card.renderCard()
+};
 
 const openPopupEdit = () => {
     nameInput.value = profileName.textContent;
@@ -70,9 +75,7 @@ const handleCardFormSubmit = (evt) => {
     evt.preventDefault();
     const name = placeInput.value;
     const link = linkInput.value;
-    const card = new Card('#card', openPopupView, name, link);
-    const createCard = card.renderCard()
-    photosContainer.prepend(createCard);
+    photosContainer.prepend(createCard(name, link));
     formAdd.reset();
     closePopup(popupAdd);
 };
@@ -85,9 +88,9 @@ const openPopupView = (link, name) => {
 }
 
 initialCards.forEach((item) => {
-        const card = new Card('#card', openPopupView, item.name, item.link);
-        const renderInitialCard = card.renderCard();
-        photosContainer.append(renderInitialCard);
+        const name = item.name;
+        const link = item.link;
+        photosContainer.append(createCard(name, link));
 });
 
 const overlayHandler = (evt) => {
