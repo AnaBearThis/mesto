@@ -1,9 +1,9 @@
 export default class Card {
-    constructor(cardTemplate, openPopupView, name, link) {
+    constructor(cardTemplate, name, link, handleCardClick) {
         this._cardTemplate = cardTemplate;
-        this._openPopupView = openPopupView;
         this._name = name;
         this._link = link;
+        this._handleCardClick = handleCardClick;
     }
 
     _getCardItem() {
@@ -42,13 +42,9 @@ export default class Card {
         this._card.remove();
     }
 
-    _viewPic() {
-        this._openPopupView(this._link, this._name);
-    }
-
     _setEventListeners() {
         this._buttonLike.addEventListener('click', () => this._likeButton());
         this._buttonDelete.addEventListener('click', () => this._deleteCard());
-        this._cardPic.addEventListener('click', () => this._viewPic());
+        this._cardPic.addEventListener('click', () => this._handleCardClick());
     }
 }
