@@ -13,16 +13,4 @@ export default class PopupWithImage extends Popup {
         this._img.alt = name;
         this._placeName.textContent = name;
     }
-
-    close() {
-        super.close();
-    }
-
-    _handleEscClose() {
-        super._handleEscClose(evt);
-    }
-
-    setEventListeners() {
-        super.setEventListeners();
-    }
 }

@@ -1,15 +1,26 @@
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
-import { initialCards, photosContainer, popupView } from "../utils/constants.js";
+import { initialCards, formValidationConfig, photosContainer, popupEdit, popupView, popupAdd, buttonOpenEditProfilePopup, buttonOpenAddCardPopup, placeInput, linkInput, nameInput, descriptionInput, profileName, profileDescription, formsList } from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 
+formsList.forEach((form) => {
+    const formValidator = new FormValidator(formValidationConfig, form);
+    formValidator.enableValidation();
+})
 
+const user = new UserInfo({userNameSelector: profileName, userJobSelector: profileDescription});
 
-// formsList.forEach((form) => {
-//     const formValidator = new FormValidator(formValidationConfig, form);
-//     formValidator.enableValidation();
-// })
+const handleFormEditSubmit = (evt) => {
+    evt.preventDefault();
+    user.setUserInfo(nameInput.value, descriptionInput.value);
+    popupEditInfo.close();
+}
+
+const popupEditInfo = new PopupWithForm(popupEdit, handleFormEditSubmit);
+popupEditInfo.setEventListeners();
 
 const popupViewItem = new PopupWithImage(popupView);
 
@@ -31,73 +42,34 @@ const setInitialCards = new Section({
 
 setInitialCards.renderEls();
 
-// const openPopupEdit = () => {
-//     nameInput.value = profileName.textContent;
-//     descriptionInput.value = profileDescription.textContent;
-//     openPopup(popupEdit);
-// }
+const handleCardFormSubmit = (evt) => {
+    evt.preventDefault();
+    const userCard = new Section({
+        items: [{
+            name: placeInput.value,
+            link: linkInput.value
+        }],
+        renderer: (cardItem) => {
+            const newCard =  createCard(cardItem.name, cardItem.link);
+            setInitialCards.addItem(newCard);
+            popupViewItem.setEventListeners();
+        }
+        },
+        photosContainer
+    )
+    userCard.renderEls();
+    popupAddCard.close();
+};
 
-// function openPopup(popup) {
-//     popup.classList.add('popup_opened');
-//     document.addEventListener('keydown', keyHandler);
-// }
+const popupAddCard = new PopupWithForm(popupAdd, handleCardFormSubmit);
+popupAddCard.setEventListeners();
 
-// const keyHandler = (evt) => {
-//     if (evt.key == 'Escape') {
-//       const popup = page.querySelector('.popup_opened');
-//       closePopup(popup);
-//     };
-// };
-
-// function closePopup(popup) {
-//     popup.classList.remove('popup_opened');
-//     document.removeEventListener('keydown', keyHandler);
-// }
-
-// function handleFormEditSubmit (evt) {
-//     evt.preventDefault();
-//     profileName.textContent = nameInput.value;
-//     profileDescription.textContent = descriptionInput.value;
-//     closePopup(popupEdit);
-// }
-
-// const handleCardFormSubmit = (evt) => {
-//     evt.preventDefault();
-//     const name = placeInput.value;
-//     const link = linkInput.value;
-//     photosContainer.prepend(createCard(name, link));
-//     //formAdd.reset();
-//     //closePopup(popupAdd);
-// };
-
-// export default handleCardFormSubmit;
-
-// const openPopupView = (link, name) => {
-//     popupViewBigPic.src = link;
-//     popupViewBigPic.alt = name;
-//     popupViewPlaceName.textContent = name;
-//     openPopup(popupView);
-// }
-
-// // initialCards.forEach((item) => {
-// //         const name = item.name;
-// //         const link = item.link;
-// //         photosContainer.append(createCard(name, link));
-// // });
-
-// const overlayHandler = (evt) => {
-//   if (evt.target.classList.contains('popup_opened')) {
-//     closePopup(evt.target);
-//   };
-// }
-
-// popupCloseButtonView.addEventListener('click', () => closePopup(popupView));
-// buttonOpenEditProfilePopup.addEventListener('click', () => openPopupEdit());
-// buttonOpenAddCardPopup.addEventListener('click', () => {
-//     openPopup(popupAdd);
-// });
-// popupCloseButtonEdit.addEventListener('click', () => closePopup(popupEdit));
-// popupCloseButtonAdd.addEventListener('click', () => closePopup(popupAdd));
-// formEdit.addEventListener('submit', handleFormEditSubmit);
-// formAdd.addEventListener('submit', handleCardFormSubmit);
-// document.addEventListener('click', overlayHandler);
+buttonOpenEditProfilePopup.addEventListener('click', () => {
+    popupEditInfo.open();
+    user.getUserInfo();
+    nameInput.value = user.userInfo.name;
+    descriptionInput.value = user.userInfo.job;
+});
+buttonOpenAddCardPopup.addEventListener('click', () => {
+     popupAddCard.open();
+});
