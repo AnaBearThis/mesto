@@ -54,6 +54,5 @@ const linkInput = popupAddContainer.querySelector('.popup__input.popup__input_da
 const placeInput = popupAddContainer.querySelector('.popup__input.popup__input_data_place');
 const main = content.querySelector('.main');
 const photosContainer = main.querySelector('.photos');
-const formsList = Array.from(document.querySelectorAll('.popup__form'));
 
-export {initialCards, formValidationConfig, photosContainer, popupEdit, popupView, popupAdd, buttonOpenEditProfilePopup, buttonOpenAddCardPopup, placeInput, linkInput, nameInput, descriptionInput, profileName, profileDescription, formsList};
+export {initialCards, formValidationConfig, photosContainer, popupEdit, popupView, popupAdd, buttonOpenEditProfilePopup, buttonOpenAddCardPopup, placeInput, linkInput, nameInput, descriptionInput, profileName, profileDescription};

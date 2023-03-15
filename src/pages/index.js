@@ -2,75 +2,70 @@ import './index.css';
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
-import { initialCards, formValidationConfig, photosContainer, popupEdit, popupView, popupAdd, buttonOpenEditProfilePopup, buttonOpenAddCardPopup, placeInput, linkInput, nameInput, descriptionInput, profileName, profileDescription, formsList } from "../utils/constants.js";
+import { initialCards, formValidationConfig, photosContainer, popupEdit, popupView, popupAdd, buttonOpenEditProfilePopup, buttonOpenAddCardPopup, placeInput, linkInput, nameInput, descriptionInput, profileName, profileDescription } from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
-formsList.forEach((form) => {
-    const formValidator = new FormValidator(formValidationConfig, form);
-    formValidator.enableValidation();
-})
+const formValidators = {}
 
-const user = new UserInfo({userNameSelector: profileName, userJobSelector: profileDescription});
+const enableValidation = (formValidationConfig) => {
+  const formList = Array.from(document.querySelectorAll(formValidationConfig.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(formElement, formValidationConfig)
+    const formName = formElement.getAttribute('name')
 
-const handleFormEditSubmit = (evt) => {
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
+};
+
+enableValidation(formValidationConfig);
+
+
+const user = new UserInfo({userName: profileName, userJob: profileDescription});
+
+const popupEditInfo = new PopupWithForm(popupEdit, (evt) => {
     evt.preventDefault();
-    user.setUserInfo(nameInput.value, descriptionInput.value);
+    user.setUserInfo(popupEditInfo._getInputValues().name, popupEditInfo._getInputValues().description);
     popupEditInfo.close();
-}
-
-const popupEditInfo = new PopupWithForm(popupEdit, handleFormEditSubmit);
+});
 popupEditInfo.setEventListeners();
 
 const popupViewItem = new PopupWithImage(popupView);
+popupViewItem.setEventListeners();
 
 const createCard = (name, link) => {
     const card = new Card('#card', name, link, () => popupViewItem.open(name, link));
     return card.renderCard()
 };
 
-const setInitialCards = new Section({
-    items: initialCards,
+const setCard = new Section({
     renderer: (cardItem) => {
         const newCard =  createCard(cardItem.name, cardItem.link);
-        setInitialCards.addItem(newCard);
-        popupViewItem.setEventListeners();
+        setCard.addItem(newCard);
     }
     },
     photosContainer
 )
 
-setInitialCards.renderEls();
+setCard.renderEls(initialCards);
 
-const handleCardFormSubmit = (evt) => {
+const popupAddCard = new PopupWithForm(popupAdd, (evt) => {
     evt.preventDefault();
-    const userCard = new Section({
-        items: [{
-            name: placeInput.value,
-            link: linkInput.value
-        }],
-        renderer: (cardItem) => {
-            const newCard =  createCard(cardItem.name, cardItem.link);
-            setInitialCards.addItem(newCard);
-            popupViewItem.setEventListeners();
-        }
-        },
-        photosContainer
-    )
-    userCard.renderEls();
+    setCard.renderEls([popupAddCard._getInputValues()]);
     popupAddCard.close();
-};
-
-const popupAddCard = new PopupWithForm(popupAdd, handleCardFormSubmit);
+})
 popupAddCard.setEventListeners();
 
 buttonOpenEditProfilePopup.addEventListener('click', () => {
     popupEditInfo.open();
-    user.getUserInfo();
-    nameInput.value = user.userInfo.name;
-    descriptionInput.value = user.userInfo.job;
+    formValidators['userInfo'].toggleButton();
+    const {name, job} = user.getUserInfo()
+    nameInput.value = name;
+    descriptionInput.value = job;
 });
 buttonOpenAddCardPopup.addEventListener('click', () => {
      popupAddCard.open();
+     formValidators['newCard'].toggleButton();
 });
