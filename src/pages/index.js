@@ -27,7 +27,8 @@ const user = new UserInfo({userName: profileName, userJob: profileDescription});
 
 const popupEditInfo = new PopupWithForm(popupEdit, (evt) => {
     evt.preventDefault();
-    user.setUserInfo(popupEditInfo._getInputValues().name, popupEditInfo._getInputValues().description);
+    const inputValues = popupEditInfo.getInputValues();
+    user.setUserInfo(inputValues.name, inputValues.description);
     popupEditInfo.close();
 });
 popupEditInfo.setEventListeners();
@@ -53,7 +54,7 @@ setCard.renderEls(initialCards);
 
 const popupAddCard = new PopupWithForm(popupAdd, (evt) => {
     evt.preventDefault();
-    setCard.renderEls([popupAddCard._getInputValues()]);
+    setCard.renderEls([popupAddCard.getInputValues()]);
     popupAddCard.close();
 })
 popupAddCard.setEventListeners();
