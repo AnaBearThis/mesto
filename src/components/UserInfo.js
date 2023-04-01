@@ -1,9 +1,8 @@
 export default class UserInfo {
-    constructor({ userName, userJob, userAvatar, handleAvClick }) {
+    constructor({ userName, userJob, userAvatar }) {
         this._userName = userName;
         this._userJob = userJob;
         this._avatar = userAvatar;
-        this._handleAvClick = handleAvClick;
     }
 
     getUserInfo() {
@@ -15,16 +14,28 @@ export default class UserInfo {
     }
 
     setUserInfo(name, job, avatar) {
-        this._userName.textContent = name;
-        this._userJob.textContent = job;
-        this._avatar.src = avatar;
+        if(name) {
+            this._userName.textContent = name;
+        } else {
+            console.log('Что-то пошло не так');
+        };
+        if(job) {
+            this._userJob.textContent = job;
+        } else {
+            console.log('Что-то пошло не так');
+        };
+        if(avatar) {
+            this._avatar.src = avatar;
+        } else {
+            console.log('Что-то пошло не так');
+        };
     }
 
     setUserAvatar(avatar) {
-        this._avatar.src = avatar;
-    }
-
-    setEventListeners() {
-        this._avatar.addEventListener('click', this._handleAvClick)
+        if(avatar) {
+            this._avatar.src = avatar;
+        } else {
+            console.log('Что-то пошло не так');
+        }
     }
 }

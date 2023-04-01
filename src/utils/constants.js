@@ -19,6 +19,7 @@ const popupView = page.querySelector('.popup_type_view');
 const profileInfo = profileContainer.querySelector('.profile__info');
 const profileName = profileInfo.querySelector('.profile__name');
 const profileDescription = profileInfo.querySelector('.profile__description');
+const profileAvatarButton = profileContainer.querySelector('.profile__avatar');
 const profileAvatar = profileContainer.querySelector('.profile__pic');
 const popupEditContainer = popupEdit.querySelector('.popup__container');
 const popupAddContainer = popupAdd.querySelector('.popup__container');
@@ -30,4 +31,4 @@ const placeInput = popupAddContainer.querySelector('.popup__input.popup__input_d
 const main = content.querySelector('.main');
 const photosContainer = main.querySelector('.photos');
 
-export {page, formValidationConfig, photosContainer, popupEdit, popupChangeAvatar, popupView, popupAdd, buttonOpenEditProfilePopup, buttonOpenAddCardPopup, placeInput, linkInput, nameInput, descriptionInput, profileName, profileDescription, profileAvatar};
+export {page, formValidationConfig, photosContainer, popupEdit, popupChangeAvatar, popupView, popupAdd, buttonOpenEditProfilePopup, buttonOpenAddCardPopup, placeInput, linkInput, nameInput, descriptionInput, profileName, profileDescription, profileAvatarButton, profileAvatar};
