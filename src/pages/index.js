@@ -48,6 +48,9 @@ const popupAvatar = new PopupWithForm(popupChangeAvatar, (input) => {
         .then(data => {
             user.setUserAvatar(data.avatar);
         })
+        .then(() => {
+            popupAvatar.close();
+        })
         .catch((err) => console.log(err))
         .finally(() => renderSaving(false, popupAvatar))
 });
@@ -65,6 +68,9 @@ const popupEditInfo = new PopupWithForm(popupEdit, (input) => {
         .then(data => {
             user.setUserInfo(data.name, data.about, profileAvatar.src);
         })
+        .then(() => {
+            popupEditInfo.close();
+        })
         .catch((err) => console.log(err))
         .finally(() => renderSaving(false, popupEditInfo))
 });
@@ -79,6 +85,9 @@ const popupDelete = new PopupSubmit(page.querySelector('.popup_type_submit'), ()
     api.deleteCard(popupDelete.elementId)
         .then(() => {
             cardToDelete.remove();
+        })
+        .then(() => {
+            popupDelete.close();
         })
         .catch((err) => console.log(err))
         .finally(() => renderSaving(false, popupDelete))
@@ -137,6 +146,9 @@ const popupAddCard = new PopupWithForm(popupAdd, (input) => {
     api.createCard(input)
         .then((data) => {
             cardList.addItem(createCard(data.name, data.link, data.owner._id, data.likes, data._id, data.owner._id));
+        })
+        .then(() => {
+            popupAddCard.close();
         })
         .catch((err) => console.log(err))
         .finally(() => renderSaving(false, popupAddCard))
